@@ -1,0 +1,25 @@
+- name: Install Worker
+  hosts: all
+  gather_facts: false
+  become: yes
+  vars:
+    NODE_TOKEN: "{{ lookup('file', '/tmp/nodetoken_temp') }}"
+    MASTER_IP: "192.168.50.10"
+
+  tasks:
+    - name: Install the rke2-agent service and the rke2 binary
+      shell: |
+        curl -sfL https://get.rke2.io | INSTALL_RKE2_TYPE="agent" sh -
+        mkdir -p /etc/rancher/rke2/
+        
+    - name: Create RKE2 agent config file
+      copy:
+        dest: /etc/rancher/rke2/config.yaml
+        content: |
+          server: https://{{ MASTER_IP }}:9345
+          token: {{ NODE_TOKEN }}
+    
+    - name: Enable and Start the service
+      shell: |
+        systemctl enable rke2-agent.service
+        systemctl start rke2-agent.service
