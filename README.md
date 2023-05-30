@@ -11,7 +11,7 @@ To quickly get started with the RKE2 cluster setup using Vagrant, follow these s
 ```sh
 git clone https://github.com/sylvain-pierrot/playbook-rke2-vagrant.git
 cd playbook-rke2-vagrant
-VAGRANT_NO_PARALLEL=yes vagrant up
+vagrant up --destroy-on-error --no-parallel 
 ```
 
 The VAGRANT_NO_PARALLEL=yes flag ensures that the provisioning is done sequentially instead of in parallel, which can help avoid any potential resource conflicts.
@@ -45,7 +45,7 @@ To set up the RKE2 cluster using Vagrant, follow these steps:
 8. Run the following command to start provisioning the cluster:
 
     ```sh
-    VAGRANT_NO_PARALLEL=yes vagrant up
+    vagrant up --destroy-on-error --no-parallel 
     ```
 
    Vagrant will create and configure the virtual machines according to the `Vagrantfile` specifications. It will also execute the Ansible playbooks specified for provisioning the master and worker nodes.

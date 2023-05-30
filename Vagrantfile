@@ -16,7 +16,8 @@ Vagrant.configure("2") do |config|
         ansible.verbose = "v"
         ansible.playbook = "rke2/playbook-control-plane.yaml"
         ansible.extra_vars = {
-            node_ip: "192.168.50.10",
+            NAME: "rke2",
+            MASTER_IP: "192.168.50.10"
         }
       end
     end
@@ -36,7 +37,7 @@ Vagrant.configure("2") do |config|
           ansible.verbose = "v"
           ansible.playbook = "rke2/playbook-worker.yaml"
           ansible.extra_vars = {
-              node_ip: "192.168.50.10",
+            MASTER_IP: "192.168.50.10"
           }
         end
       end
