@@ -44,7 +44,7 @@
 
     - name: Replace kubeconfig host
       become: no
-      # become_method: sudo
+      connection: local
       delegate_to: localhost
       copy:
         content: "{{ kubeconfig.stdout }}"
