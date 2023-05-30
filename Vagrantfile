@@ -17,7 +17,8 @@ Vagrant.configure("2") do |config|
         ansible.playbook = "rke2/playbook-control-plane.yaml"
         ansible.extra_vars = {
             NAME: "rke2",
-            MASTER_IP: "192.168.50.10"
+            MASTER_IP: "192.168.50.10",
+            USER_PATH: ENV['USER_PATH']
         }
       end
     end

@@ -43,4 +43,4 @@
       local_action: shell
         sed -i 's/default/{{ NAME }}/g' /tmp/kubeconfig_temp &&
         sed -i 's/127.0.0.1/{{ MASTER_IP }}/g' /tmp/kubeconfig_temp &&
-        KUBECONFIG=~/.kube/config:/tmp/kubeconfig_temp kubectl config view --flatten > ~/.kube/config
+        KUBECONFIG=~/.kube/config:/tmp/kubeconfig_temp kubectl config view --flatten > {{ USER_PATH }}/.kube/config
