@@ -1,6 +1,6 @@
 - name: Install Control Plane
   hosts: all
-  gather_facts: false
+  gather_facts: true
   become: yes
 
   tasks:
@@ -22,25 +22,30 @@
       register: node_token
 
     - name: Copy kubeconfig to local file
-      become: true
-      become_method: sudo
-      local_action: 
-        module: copy 
-        content: "{{ context.stdout }}" 
+      local_action:
+        module: copy
+        content: "{{ context.stdout }}"
         dest: "/tmp/kubeconfig_temp"
 
     - name: Copy node-token to local file
-      become: true
-      become_method: sudo
-      local_action: 
-        module: copy 
-        content: "{{ node_token.stdout_lines[0] }}" 
+      local_action:
+        module: copy
+        content: "{{ node_token.stdout_lines[0] }}"
         dest: "/tmp/nodetoken_temp"
 
-    - name: Add Cluster context to the host system
-      become: true
+    - name: Merge kubeconfig rke2 with current
       become_method: sudo
-      local_action: shell
-        sed -i 's/default/{{ NAME }}/g' /tmp/kubeconfig_temp &&
-        sed -i 's/127.0.0.1/{{ MASTER_IP }}/g' /tmp/kubeconfig_temp &&
-        KUBECONFIG={{ USER_PATH }}/.kube/config:/tmp/kubeconfig_temp kubectl config view --flatten > {{ USER_PATH }}/.kube/config
+      delegate_to: localhost
+      shell: |
+        sed -i 's/default/{{ NAME }}/g' /tmp/kubeconfig_temp
+        sed -i 's/127.0.0.1/{{ ansible_facts.default_ipv4.address }}/g' /tmp/kubeconfig_temp
+        KUBECONFIG=~/.kube/config:/tmp/kubeconfig_temp kubectl config view --flatten
+      register: kubeconfig
+
+    - name: Replace kubeconfig host
+      become: no
+      # become_method: sudo
+      delegate_to: localhost
+      copy:
+        content: "{{ kubeconfig.stdout }}"
+        dest: ~/.kube/config

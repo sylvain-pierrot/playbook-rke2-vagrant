@@ -15,10 +15,10 @@ Vagrant.configure("2") do |config|
       master.vm.provision "ansible" do |ansible|
         ansible.verbose = "v"
         ansible.playbook = "rke2/playbook-control-plane.yaml"
+        ansible.compatibility_mode = "2.0"
+        ansible.raw_arguments = ['--ask-become-pass']
         ansible.extra_vars = {
-            NAME: "rke2",
-            MASTER_IP: "192.168.50.10",
-            USER_PATH: ENV['USER_PATH']
+            NAME: "rke2"
         }
       end
     end
