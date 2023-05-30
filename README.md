@@ -1,4 +1,4 @@
-# Setting Up RKE2 Cluster with Vagrant using Ansible Playbook
+# Automating RKE2 Cluster Setup with Vagrant and Ansible Playbook
 
 <p align="center">
     <img width=400 src="https://ranchergovernment.com/hubfs/horizontal-rke-2.png" alt="rke2" />
@@ -11,54 +11,18 @@ To quickly get started with the RKE2 cluster setup using Vagrant, follow these s
 ```sh
 git clone https://github.com/sylvain-pierrot/playbook-rke2-vagrant.git
 cd playbook-rke2-vagrant
-vagrant up --destroy-on-error --no-parallel 
+vagrant up --no-parallel
 ```
 
-The VAGRANT_NO_PARALLEL=yes flag ensures that the provisioning is done sequentially instead of in parallel, which can help avoid any potential resource conflicts.
+The `--no-parallel` flag ensures that the provisioning is done sequentially instead of in parallel, which can help avoid any potential resource conflicts.
 
 Once the provisioning process is complete, you will have your RKE2 cluster up and running.
 
-## Custom installation instructions
+## Delete Cluster
 
-To set up the RKE2 cluster using Vagrant, follow these steps:
-
-1. Ensure that you have Vagrant installed on your machine. If not, you can download and install it from the [Vagrant website](https://www.vagrantup.com/downloads.html).
-
-2. Clone the repository or download the necessary files for the RKE2 cluster setup.
-
-3. Open the `Vagrantfile` and locate the following code block:
-
-    ```ruby
-    Vagrant.configure("2") do |config|
-        # Configuration details...
-    end
-    ```
-
-4. Modify the configuration details according to your requirements. You can adjust the number of CPUs, memory allocation, IP addresses, and other parameters for the master and worker nodes.
-
-5. Make sure to set the `ENV['BOX_IMAGE']` and `ENV['WORKER_NODES_COUNT']` environment variables to the appropriate values. These variables define the base box image and the number of worker nodes for the cluster.
-
-6. Save the changes to the `Vagrantfile`.
-
-7. Open a terminal or command prompt and navigate to the directory where the `Vagrantfile` is located.
-
-8. Run the following command to start provisioning the cluster:
-
-    ```sh
-    vagrant up --destroy-on-error --no-parallel 
-    ```
-
-   Vagrant will create and configure the virtual machines according to the `Vagrantfile` specifications. It will also execute the Ansible playbooks specified for provisioning the master and worker nodes.
-
-9. Wait for the provisioning process to complete. Once finished, you should have a fully functional RKE2 cluster set up with the specified number of worker nodes.
-
-10. You can now interact with your RKE2 cluster using tools like `kubectl` or other Kubernetes utilities.
-
-Feel free to customize the `Vagrantfile` and Ansible playbooks to suit your specific requirements.
-
-**Note:** Make sure you have the necessary dependencies and box image specified in your `Vagrantfile` before running the `vagrant up` command.
-
-For additional information and advanced usage, please refer to the project documentation or the relevant files in the repository.
+```sh
+vagrant destroy --force
+```
 
 ## Tech stack
 
