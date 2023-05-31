@@ -16,6 +16,8 @@ vagrant up --no-parallel
 
 The `--no-parallel` flag ensures that the provisioning is done sequentially instead of in parallel, which can help avoid any potential resource conflicts.
 
+:warning: **Playbook** execution **requires** the **sudo password**, granting the necessary privileges to perform provisioning tasks. A prompt will be requested when the playbook is launched.
+
 Once the provisioning process is complete, you will have your RKE2 cluster up and running.
 
 The kubeconfig file for the cluster will be created at the root of the project. You can use the following command to interact with the cluster using kubectl:
