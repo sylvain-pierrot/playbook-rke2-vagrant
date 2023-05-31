@@ -43,9 +43,7 @@
       register: kubeconfig
 
     - name: Replace kubeconfig host
-      become: no
-      connection: local
       delegate_to: localhost
       copy:
         content: "{{ kubeconfig.stdout }}"
-        dest: ~/.kube/config
+        dest: "{{ playbook_dir }}/../kubeconfig"

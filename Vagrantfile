@@ -7,13 +7,12 @@ Vagrant.configure("2") do |config|
       master.vm.provider :libvirt do |libvirt|
         libvirt.cpus = 2
         libvirt.memory = 4096
-        # libvirt.machine_virtual_size = 20
       end
       master.vm.box = ENV['BOX_IMAGE']
       master.vm.network :private_network, ip: "192.168.50.10", netmask: "255.255.255.0"
       master.vm.hostname = "rke2-control-plane"
       master.vm.provision "ansible" do |ansible|
-        ansible.verbose = "v"
+        # ansible.verbose = "v"
         ansible.playbook = "rke2/playbook-control-plane.yaml"
         ansible.compatibility_mode = "2.0"
         ansible.raw_arguments = ['--ask-become-pass']
@@ -29,14 +28,14 @@ Vagrant.configure("2") do |config|
         node.vm.provider :libvirt do |libvirt|
           libvirt.cpus = 2
           libvirt.memory = 4096
-          # libvirt.machine_virtual_size = 20
         end
         node.vm.box = ENV['BOX_IMAGE']
         node.vm.network :private_network, ip: "192.168.50.#{i + 10}", netmask: "255.255.255.0"
         node.vm.hostname = "rke2-worker-#{i}"
         node.vm.provision "ansible" do |ansible|
-          ansible.verbose = "v"
+          # ansible.verbose = "v"
           ansible.playbook = "rke2/playbook-worker.yaml"
+          ansible.compatibility_mode = "2.0"
           ansible.extra_vars = {
             MASTER_IP: "192.168.50.10"
           }
