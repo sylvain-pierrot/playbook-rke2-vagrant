@@ -8,6 +8,7 @@
 
 Before running the playbook, make sure you have the following requirements installed:
 
+- Ansible: Ansible is an open-source automation tool used for configuration management and application deployment. You can install Ansible by following the instructions in the[ official Ansible documentation](https://www.ansible.com/).
 - Vagrant: You can download and install Vagrant from the [official website](https://www.vagrantup.com/). Ensure that Vagrant is properly installed and available in your system's PATH.
 - Vagrant Plugin: Install the `vagrant-env` plugin by running the following command:
 
