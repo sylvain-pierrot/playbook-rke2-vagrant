@@ -4,6 +4,19 @@
     <img width=400 src="https://ranchergovernment.com/hubfs/horizontal-rke-2.png" alt="rke2" />
 </p>
 
+## Requirements
+
+Before running the playbook, make sure you have the following requirements installed:
+
+- Vagrant: You can download and install Vagrant from the [official website](https://www.vagrantup.com/). Ensure that Vagrant is properly installed and available in your system's PATH.
+- Vagrant Plugin: Install the `vagrant-env` plugin by running the following command:
+
+```sh
+vagrant plugin install vagrant-env
+```
+
+The `vagrant-env` plugin allows Vagrant to load environment variables from a `.env` file, which is used to customize the Vagrant configuration.
+
 ## Quick Start
 
 To quickly get started with the RKE2 cluster setup using Vagrant, follow these steps:
