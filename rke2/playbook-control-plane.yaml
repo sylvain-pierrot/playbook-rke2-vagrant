@@ -7,6 +7,13 @@
     - name: Install the rke2-server service and the rke2 binary
       shell: |
         curl -sfL https://get.rke2.io | sh -
+        mkdir -p /etc/rancher/rke2/
+
+    - name: Disable nginx
+      copy:
+        dest: /etc/rancher/rke2/config.yaml
+        content: |
+          disable: rke2-ingress-nginx
 
     - name: Enable and Start the service
       shell: |
